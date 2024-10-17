@@ -2,6 +2,7 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const Auction = require('../models/auction');
+const User = require('../models/user');
 const auth = require('../middleware/auth');
 
 const router = express.Router();
@@ -131,15 +132,23 @@ router.get('/:id', auth, async (req, res) => {
 
     if (auction.status === 'closed') {
       if (isCreator) {
-        auctionObj.bids = auctionObj.bids.map(bid => ({
-          ...bid,
-          amount: auction.decryptBid(bid.encryptedAmount)
+        auctionObj.bids = await Promise.all(auctionObj.bids.map(async (bid) => {
+          const bidder = await User.findById(bid.bidder);
+          return {
+            ...bid,
+            amount: auction.decryptBid(bid.encryptedAmount),
+            bidderUsername: bidder.username
+          };
         }));
         const maxBid = Math.max(...auctionObj.bids.map(bid => bid.amount));
         auctionObj.maxBid = maxBid;
+        auctionObj.winningBidder = auctionObj.bids.find(bid => bid.amount === maxBid).bidderUsername;
       } else {
         const maxBid = Math.max(...auction.bids.map(bid => auction.decryptBid(bid.encryptedAmount)));
         auctionObj.maxBid = maxBid;
+        const winningBid = auction.bids.find(bid => auction.decryptBid(bid.encryptedAmount) === maxBid);
+        const winningBidder = await User.findById(winningBid.bidder);
+        auctionObj.winningBidder = winningBidder.username;
         delete auctionObj.bids;
       }
     } else {
