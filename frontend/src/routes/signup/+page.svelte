@@ -1,9 +1,13 @@
 <script>
   import { goto } from '$app/navigation';
   import { signup } from '$lib/api';
-  import { Eye, EyeOff, User, Lock } from 'lucide-svelte';
+  import { Eye, EyeOff, User, Lock, Mail, Phone } from 'lucide-svelte';
 
   let username = '';
+  let email = '';
+  let firstName = '';
+  let lastName = '';
+  let phoneNumber = '';
   let password = '';
   let error = '';
   let showPassword = false;
@@ -28,7 +32,7 @@
 
   async function handleSubmit() {
     try {
-      await signup(username, password);
+      await signup(username, email, firstName, lastName, phoneNumber, password);
       goto('/login');
     } catch (err) {
       error = err.message;
@@ -62,6 +66,77 @@
               bind:value={username}
               class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md"
               placeholder="Enter your username"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700">
+            Email
+          </label>
+          <div class="mt-1 relative rounded-md shadow-sm">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <Mail class="h-5 w-5 text-gray-400" />
+            </div>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              required
+              bind:value={email}
+              class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md"
+              placeholder="Enter your email"
+            />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label for="firstName" class="block text-sm font-medium text-gray-700">
+              First Name
+            </label>
+            <input
+              id="firstName"
+              name="firstName"
+              type="text"
+              required
+              bind:value={firstName}
+              class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+              placeholder="First Name"
+            />
+          </div>
+          <div>
+            <label for="lastName" class="block text-sm font-medium text-gray-700">
+              Last Name
+            </label>
+            <input
+              id="lastName"
+              name="lastName"
+              type="text"
+              required
+              bind:value={lastName}
+              class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+              placeholder="Last Name"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label for="phoneNumber" class="block text-sm font-medium text-gray-700">
+            Phone Number
+          </label>
+          <div class="mt-1 relative rounded-md shadow-sm">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <Phone class="h-5 w-5 text-gray-400" />
+            </div>
+            <input
+              id="phoneNumber"
+              name="phoneNumber"
+              type="tel"
+              required
+              bind:value={phoneNumber}
+              class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md"
+              placeholder="Enter your phone number"
             />
           </div>
         </div>

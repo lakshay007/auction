@@ -27,10 +27,10 @@ export function login(username, password) {
   });
 }
 
-export function signup(username, password) {
+export function signup(username, email, firstName, lastName, phoneNumber, password) {
   return fetchJSON(`${API_URL}/auth/signup`, {
     method: 'POST',
-    body: JSON.stringify({ username, password }),
+    body: JSON.stringify({ username, email, firstName, lastName, phoneNumber, password }),
   });
 }
 
