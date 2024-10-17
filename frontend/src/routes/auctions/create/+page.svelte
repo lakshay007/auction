@@ -42,14 +42,14 @@
   }
 </script>
 
-<div class="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+<div class="min-h-screen bg-gray-100 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
   <div class="max-w-3xl mx-auto">
-    <h1 class="text-3xl font-extrabold text-gray-900 text-center mb-8">Create New Auction</h1>
+    <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white text-center mb-8">Create New Auction</h1>
 
     {#if $auth.isLoggedIn}
-      <form on:submit|preventDefault={handleSubmit} class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <form on:submit|preventDefault={handleSubmit} class="bg-white dark:bg-gray-800 shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="title">
+          <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="title">
             Auction Title
           </label>
           <div class="relative">
@@ -62,13 +62,13 @@
               type="text"
               placeholder="Enter auction title"
               required
-              class="pl-10 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              class="pl-10 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
         </div>
 
         <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="description">
+          <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="description">
             Description
           </label>
           <div class="relative">
@@ -80,13 +80,13 @@
               id="description"
               placeholder="Enter auction description"
               required
-              class="pl-10 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-32"
+              class="pl-10 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline h-32"
             ></textarea>
           </div>
         </div>
 
         <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="type">
+          <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="type">
             Item Type
           </label>
           <div class="relative">
@@ -99,14 +99,14 @@
               type="text"
               placeholder="Enter item type"
               required
-              class="pl-10 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              class="pl-10 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
         </div>
 
         <div class="flex flex-wrap -mx-3 mb-4">
           <div class="w-full md:w-1/2 px-3 mb-4 md:mb-0">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="startingBid">
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="startingBid">
               Starting Bid
             </label>
             <div class="relative">
@@ -120,12 +120,12 @@
                 step="0.01"
                 placeholder="0.00"
                 required
-                class="pl-10 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                class="pl-10 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               />
             </div>
           </div>
           <div class="w-full md:w-1/2 px-3">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="minimumBid">
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="minimumBid">
               Minimum Bid
             </label>
             <div class="relative">
@@ -139,14 +139,14 @@
                 step="0.01"
                 placeholder="0.00"
                 required
-                class="pl-10 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                class="pl-10 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               />
             </div>
           </div>
         </div>
 
         <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="duration">
+          <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="duration">
             Duration
           </label>
           <div class="relative">
@@ -159,13 +159,13 @@
               type="text"
               placeholder="HH:MM:SS"
               required
-              class="pl-10 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              class="pl-10 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
         </div>
 
         <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+          <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="email">
             Contact Email
           </label>
           <div class="relative">
@@ -178,13 +178,13 @@
               type="email"
               placeholder="Enter contact email"
               required
-              class="pl-10 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              class="pl-10 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
         </div>
 
         <div class="mb-6">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="image">
+          <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="image">
             Upload Image
           </label>
           <div class="relative">
@@ -200,7 +200,7 @@
             />
             <label
               for="image"
-              class="pl-10 flex items-center shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline cursor-pointer"
+              class="pl-10 flex items-center shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline cursor-pointer"
             >
               {imageName || 'Choose an image'}
             </label>
@@ -219,13 +219,13 @@
       </form>
 
       {#if error}
-        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+        <div class="bg-red-100 dark:bg-red-900 border border-red-400 dark:border-red-700 text-red-700 dark:text-red-300 px-4 py-3 rounded relative" role="alert">
           <strong class="font-bold">Error!</strong>
           <span class="block sm:inline"> {error}</span>
         </div>
       {/if}
     {:else}
-      <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4" role="alert">
+      <div class="bg-yellow-100 dark:bg-yellow-900 border-l-4 border-yellow-500 dark:border-yellow-700 text-yellow-700 dark:text-yellow-300 p-4" role="alert">
         <p class="font-bold">Not Logged In</p>
         <p>Please <a href="/login" class="underline">login</a> to create an auction.</p>
       </div>
