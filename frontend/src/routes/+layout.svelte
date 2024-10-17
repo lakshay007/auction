@@ -31,7 +31,7 @@
       <div class="flex items-center">
         <a href="/" class="flex items-center text-xl font-bold text-gray-900">
           <Gavel class="w-6 h-6 mr-2" />
-          AuctionHub
+          EncryBid
         </a>
       </div>
       <div class="flex items-center space-x-4">
@@ -81,7 +81,7 @@
 
   <footer class="bg-gray-800 text-white py-4">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <p>&copy; 2023 AuctionHub. All rights reserved.</p>
+      <p>&copy; 2023 EncryBid. All rights reserved.</p>
     </div>
   </footer>
 </div>

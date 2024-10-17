@@ -92,6 +92,7 @@
             <p class="text-lg font-semibold text-gray-900">Status: <span class="text-blue-600">{auction.status}</span></p>
             {#if auction.status === 'closed'}
               <p class="text-lg font-semibold text-gray-900 mt-2">Winning Bid: <span class="text-green-600">${auction.maxBid.toFixed(2)}</span></p>
+              <p class="text-lg font-semibold text-gray-900 mt-2">Winning Bidder: <span class="text-green-600">{auction.winningBidder}</span></p>
             {/if}
           </div>
           
@@ -135,7 +136,7 @@
                 <ul class="space-y-2">
                   {#each auction.bids as bid}
                     <li class="text-sm text-gray-500">
-                      Bidder: {bid.bidder}, Amount: ${bid.amount.toFixed(2)}
+                      Bidder: {bid.bidderUsername}, Amount: ${bid.amount.toFixed(2)}
                     </li>
                   {/each}
                 </ul>

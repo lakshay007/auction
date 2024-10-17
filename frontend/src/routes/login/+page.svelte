@@ -8,12 +8,31 @@
   let password = '';
   let error = '';
   let showPassword = false;
+  let loginLocked = false;
+  let lockTimer = 0;
 
   function togglePasswordVisibility() {
     showPassword = !showPassword;
   }
 
+  function startLockTimer() {
+    loginLocked = true;
+    lockTimer = 60;
+    const interval = setInterval(() => {
+      lockTimer--;
+      if (lockTimer <= 0) {
+        loginLocked = false;
+        clearInterval(interval);
+      }
+    }, 1000);
+  }
+
   async function handleSubmit() {
+    if (loginLocked) {
+      error = `Login locked. Please try again in ${lockTimer} seconds.`;
+      return;
+    }
+
     try {
       const { token, user } = await login(username, password);
       localStorage.setItem('token', token);
@@ -22,6 +41,9 @@
       goto('/');
     } catch (err) {
       error = err.message;
+      if (err.message === 'Too many login attempts, please try again after 60 seconds') {
+        startLockTimer();
+      }
     }
   }
 </script>
@@ -45,11 +67,11 @@
               <User class="h-5 w-5 text-gray-400" />
             </div>
             <input
+              bind:value={username}
               id="username"
               name="username"
               type="text"
               required
-              bind:value={username}
               class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md"
               placeholder="Enter your username"
             />
@@ -66,21 +88,21 @@
             </div>
             {#if showPassword}
               <input
+                bind:value={password}
                 id="password-text"
                 name="password"
                 type="text"
                 required
-                bind:value={password}
                 class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 pr-10 sm:text-sm border-gray-300 rounded-md"
                 placeholder="Enter your password"
               />
             {:else}
               <input
+                bind:value={password}
                 id="password-password"
                 name="password"
                 type="password"
                 required
-                bind:value={password}
                 class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 pr-10 sm:text-sm border-gray-300 rounded-md"
                 placeholder="Enter your password"
               />
@@ -97,30 +119,11 @@
           </div>
         </div>
 
-        <div class="flex items-center justify-between">
-          <div class="flex items-center">
-            <input
-              id="remember-me"
-              name="remember-me"
-              type="checkbox"
-              class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-            />
-            <label for="remember-me" class="ml-2 block text-sm text-gray-900">
-              Remember me
-            </label>
-          </div>
-
-          <div class="text-sm">
-            <a href="/forgot-password" class="font-medium text-indigo-600 hover:text-indigo-500">
-              Forgot your password?
-            </a>
-          </div>
-        </div>
-
         <div>
           <button
             type="submit"
             class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            disabled={loginLocked}
           >
             Sign in
           </button>
@@ -130,6 +133,12 @@
       {#if error}
         <div class="mt-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
           <span class="block sm:inline">{error}</span>
+        </div>
+      {/if}
+
+      {#if loginLocked}
+        <div class="mt-4 bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded relative" role="alert">
+          <span class="block sm:inline">Login locked. Please try again in {lockTimer} seconds.</span>
         </div>
       {/if}
 
