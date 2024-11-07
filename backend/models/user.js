@@ -7,6 +7,8 @@ const userSchema = new mongoose.Schema({
   lastName: { type: String, required: true },
   phoneNumber: { type: String, required: true },
   password: { type: String, required: true },
+  twoFactorSecret: { type: String },
+  twoFactorEnabled: { type: Boolean, default: false }
 });
 
 module.exports = mongoose.model('User', userSchema);

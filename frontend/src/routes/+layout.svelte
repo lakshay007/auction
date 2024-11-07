@@ -3,7 +3,7 @@
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
   import { auth } from '$lib/stores/auth';
-  import { Gavel, Home, Package, PlusCircle, LogIn, UserPlus, LogOut, Moon, Sun } from 'lucide-svelte';
+  import { Gavel, Home, Package, PlusCircle, LogIn, UserPlus, LogOut, Moon, Sun, Shield } from 'lucide-svelte';
   import { darkMode } from '$lib/stores/darkMode';
 
   let isDarkMode;
@@ -80,6 +80,15 @@
               <LogOut class="w-4 h-4 mr-1" />
               Logout
             </button>
+          </div>
+          <div class="relative">
+            <a
+              href="/2fa-setup"
+              class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+            >
+              <Shield class="h-4 w-4 inline-block mr-2" />
+              Setup 2FA
+            </a>
           </div>
         {:else}
           <a href="/login" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white flex items-center">

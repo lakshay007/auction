@@ -20,10 +20,15 @@ async function fetchJSON(url, options = {}) {
   return data;
 }
 
-export function login(username, password) {
+export function login(username, password, totpToken = null) {
   return fetchJSON(`${API_URL}/auth/login`, {
     method: 'POST',
-    body: JSON.stringify({ username, password }),
+    body: JSON.stringify({ username, password, totpToken }),
+  }).catch(err => {
+    if (err.message === '2FA token required') {
+      throw { requires2FA: true, message: '2FA token required' };
+    }
+    throw err;
   });
 }
 
@@ -77,5 +82,18 @@ export function closeAuction(auctionId) {
   return fetchJSON(`${API_URL}/auctions/${auctionId}/close`, {
     method: 'POST',
     headers: { Authorization: `Bearer ${token}` },
+  });
+}
+
+export function generate2FA() {
+  return fetchJSON(`${API_URL}/auth/2fa/generate`, {
+    method: 'POST'
+  });
+}
+
+export function verify2FA(token) {
+  return fetchJSON(`${API_URL}/auth/2fa/verify`, {
+    method: 'POST',
+    body: JSON.stringify({ token })
   });
 }

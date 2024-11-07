@@ -45,7 +45,7 @@ router.get('/my-auctions', auth, async (req, res) => {
       return {
         ...auction.toObject(),
         currentBid: highestBid,
-        bids: undefined // Remove bids from the response
+        bids: undefined 
       };
     });
     res.json(auctionsWithCurrentBid);
@@ -55,7 +55,7 @@ router.get('/my-auctions', auth, async (req, res) => {
   }
 });
 
-// Create new auction
+
 router.post('/', auth, upload.single('image'), async (req, res) => {
   try {
     const { title, description, type, startingBid, minimumBid, duration, email } = req.body;

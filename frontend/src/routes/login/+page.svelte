@@ -6,6 +6,8 @@
 
   let username = '';
   let password = '';
+  let totpToken = '';
+  let requires2FA = false;
   let error = '';
   let showPassword = false;
   let loginLocked = false;
@@ -34,15 +36,20 @@
     }
 
     try {
-      const { token, user } = await login(username, password);
-      localStorage.setItem('token', token);
-      localStorage.setItem('username', user.username);
-      auth.login(user);
+      const response = await login(username, password, requires2FA ? totpToken : null);
+      localStorage.setItem('token', response.token);
+      localStorage.setItem('username', response.user.username);
+      auth.login(response.user);
       goto('/');
     } catch (err) {
-      error = err.message;
-      if (err.message === 'Too many login attempts, please try again after 60 seconds') {
-        startLockTimer();
+      if (err.requires2FA) {
+        requires2FA = true;
+        error = 'Please enter your 2FA code';
+      } else {
+        error = err.message;
+        if (err.message === 'Too many login attempts, please try again after 60 seconds') {
+          startLockTimer();
+        }
       }
     }
   }
@@ -118,6 +125,27 @@
             </div>
           </div>
         </div>
+
+        {#if requires2FA}
+          <div class="mb-4">
+            <label for="totp" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              2FA Code
+            </label>
+            <div class="mt-1 relative rounded-md shadow-sm">
+              <input
+                bind:value={totpToken}
+                id="totp"
+                type="text"
+                pattern="[0-9]*"
+                inputmode="numeric"
+                maxlength="6"
+                required
+                placeholder="Enter 6-digit code"
+                class="focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+              />
+            </div>
+          </div>
+        {/if}
 
         <div>
           <button
