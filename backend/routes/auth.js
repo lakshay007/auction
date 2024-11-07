@@ -60,7 +60,8 @@ router.post('/login', loginLimiter, async (req, res) => {
       const verified = speakeasy.totp.verify({
         secret: user.twoFactorSecret,
         encoding: 'base32',
-        token: totpToken
+        token: totpToken,
+        window: 2  // Add a time window to account for slight time differences
       });
 
       if (!verified) {
@@ -115,7 +116,8 @@ router.post('/2fa/verify', auth, async (req, res) => {
     const verified = speakeasy.totp.verify({
       secret: user.twoFactorSecret,
       encoding: 'base32',
-      token: token
+      token: token,
+      window: 2  // Add time window here too
     });
 
     if (verified) {
