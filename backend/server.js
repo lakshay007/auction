@@ -5,6 +5,7 @@ const cors = require('cors');
 const authRoutes = require('./routes/auth');
 const auctionRoutes = require('./routes/auctions');
 const path = require('path');
+const securityLogger = require('./middleware/security-logger');
 
 dotenv.config();
 
@@ -16,6 +17,8 @@ app.use(cors({
 }));
 
 app.use(express.json());
+
+app.use(securityLogger);
 
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
